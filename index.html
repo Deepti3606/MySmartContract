@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bank Smart Contract Simulation</title>
+  <!-- Web3.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+  <!-- Link to the external CSS file -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Bank Smart Contract Simulation</h1>
+  <p>Interact with your wallet using direct ETH transactions.</p>
+
+  <!-- Create Account (Simulated) -->
+  <div>
+    <h3>Create Account</h3>
+    <button id="createAccount">Create Account</button>
+    <p id="createAccountStatus"></p>
+  </div>
+
+  <!-- Deposit -->
+  <div>
+    <h3>Deposit Funds</h3>
+    <input type="text" id="depositAmount" placeholder="Enter amount in ETH">
+    <button id="deposit">Deposit</button>
+    <p id="depositStatus"></p>
+  </div>
+
+  <!-- Withdraw -->
+  <div>
+    <h3>Withdraw Funds</h3>
+    <input type="text" id="withdrawAmount" placeholder="Enter amount in ETH">
+    <button id="withdraw">Withdraw</button>
+    <p id="withdrawStatus"></p>
+  </div>
+
+  <!-- Transfer -->
+  <div>
+    <h3>Transfer Funds</h3>
+    <input type="text" id="transferTo" placeholder="Recipient Address">
+    <input type="text" id="transferAmount" placeholder="Enter amount in ETH">
+    <button id="transfer">Transfer</button>
+    <p id="transferStatus"></p>
+  </div>
+
+  <!-- Get Balance -->
+  <div>
+    <h3>Get Balance</h3>
+    <button id="getBalance">Check Balance</button>
+    <p id="balance"></p>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    let web3, account;
+
+    window.addEventListener('load', async () => {
+      // Check if MetaMask (or another Web3 provider) is available
+      if (typeof window.ethereum !== 'undefined') {
+        web3 = new Web3(window.ethereum);
+        try {
+          // Request account access
+          await ethereum.request({ method: 'eth_requestAccounts' });
+          const accounts = await web3.eth.getAccounts();
+          account = accounts[0];
+          console.log("Connected account:", account);
+          setupEventListeners();
+          updateBalance();
+        } catch (error) {
+          console.error("User denied account access:", error);
+        }
+      } else {
+        alert('Please install MetaMask to use this app.');
+      }
+    });
+
+    function setupEventListeners() {
+      // Create Account (Simulated)
+      document.getElementById('createAccount').addEventListener('click', async () => {
+        try {
+          // Since your wallet already manages accounts, simply inform the user.
+          document.getElementById('createAccountStatus').innerText = "Account already exists in your wallet!";
+        } catch (error) {
+          document.getElementById('createAccountStatus').innerText = `Error: ${error.message}`;
+        }
+      });
+
+      // Deposit Funds (Simulated by sending a transaction to yourself)
+      document.getElementById('deposit').addEventListener('click', async () => {
+        const amount = document.getElementById('depositAmount').value;
+        try {
+          await web3.eth.sendTransaction({ 
+            from: account, 
+            to: account, 
+            value: web3.utils.toWei(amount, "ether") 
+          });
+          document.getElementById('depositStatus').innerText = "Deposit simulated (transaction sent to self)!";
+          updateBalance();
+        } catch (error) {
+          document.getElementById('depositStatus').innerText = `Error: ${error.message}`;
+        }
+      });
+
+      // Withdraw Funds (Simulated - no actual withdrawal possible from your wallet)
+      document.getElementById('withdraw').addEventListener('click', async () => {
+        const amount = document.getElementById('withdrawAmount').value;
+        try {
+          // In a real contract, funds would be sent out. Here, we simulate by displaying a message.
+          document.getElementById('withdrawStatus').innerText = "Withdrawal simulated (no actual funds moved).";
+          updateBalance();
+        } catch (error) {
+          document.getElementById('withdrawStatus').innerText = `Error: ${error.message}`;
+        }
+      });
+
+      // Transfer Funds
+      document.getElementById('transfer').addEventListener('click', async () => {
+        const to = document.getElementById('transferTo').value;
+        const amount = document.getElementById('transferAmount').value;
+        try {
+          await web3.eth.sendTransaction({ 
+            from: account, 
+            to: to, 
+            value: web3.utils.toWei(amount, "ether") 
+          });
+          document.getElementById('transferStatus').innerText = "Transfer successful!";
+          updateBalance();
+        } catch (error) {
+          document.getElementById('transferStatus').innerText = `Error: ${error.message}`;
+        }
+      });
+
+      // Get Balance
+      document.getElementById('getBalance').addEventListener('click', updateBalance);
+    }
+
+    async function updateBalance() {
+      try {
+        // Get the ETH balance of the connected account
+        const balance = await web3.eth.getBalance(account);
+        document.getElementById('balance').innerText = `Your ETH balance: ${web3.utils.fromWei(balance, "ether")} ETH`;
+      } catch (error) {
+        document.getElementById('balance').innerText = `Error: ${error.message}`;
+      }
+    }
+  </script>
+</body>
+</html>

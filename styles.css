@@ -1,0 +1,63 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fad3f8;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  
+  h1 {
+    color: #333;
+    margin-top: 20px;
+    font-size: 28px;
+  }
+  
+  p {
+    color: #666;
+  }
+  
+  /* Container */
+  div {
+    background: #d4e4fd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    margin: 25px auto;
+    width: 85%;
+    max-width: 450px;
+  }
+  
+  /* Inputs */
+  input {
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 18px;
+  }
+  
+  /* Buttons */
+  button {
+    background-color: #7612c9;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    transition: background 0.3s;
+  }
+  
+  button:hover {
+    background-color: #218838;
+  }
+  
+  /* Status Messages */
+  p[id$='Status'], p#balance {
+    font-weight: bold;
+    color: #333;
+  }
+  
