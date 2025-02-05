@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Land Registration DApp</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <h1>Land Registration DApp</h1>
+
+    <!-- Register Land -->
+    <div>
+        <h3>Register Land</h3>
+        <input type="text" id="landArea" placeholder="Enter Land Area">
+        <input type="text" id="landLocation" placeholder="Enter Location">
+        <button id="registerLand">Register Land</button>
+        <p id="registerLandStatus"></p>
+    </div>
+
+    <!-- Transfer Ownership -->
+    <div>
+        <h3>Transfer Ownership</h3>
+        <input type="text" id="landId" placeholder="Enter Land ID">
+        <input type="text" id="newOwner" placeholder="New Owner Address">
+        <button id="transferOwnership">Transfer</button>
+        <p id="transferOwnershipStatus"></p>
+    </div>
+
+    <!-- Check Land Record -->
+    <div>
+        <h3>Check Land Record</h3>
+        <input type="text" id="checkLandId" placeholder="Enter Land ID">
+        <button id="getLandRecord">Get Record</button>
+        <p id="landRecord"></p>
+    </div>
+</body>
+</html>
